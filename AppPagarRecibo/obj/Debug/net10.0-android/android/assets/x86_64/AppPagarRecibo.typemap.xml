@@ -1,0 +1,10 @@
+<api type="debug" assembly-name="AppPagarRecibo" mvid="a550d1c21d76405d837bd522ab716fa8">
+  <java-to-managed>
+    <entry java-name="crc645dfc9db1ac629028/MainActivity" managed-name="AppPagarRecibo.MainActivity, AppPagarRecibo" managed-type-token-id="33554442" />
+    <entry java-name="crc645dfc9db1ac629028/MainApplication" managed-name="AppPagarRecibo.MainApplication, AppPagarRecibo" managed-type-token-id="33554443" />
+  </java-to-managed>
+  <managed-to-java>
+    <entry java-name="crc645dfc9db1ac629028/MainActivity" managed-name="AppPagarRecibo.MainActivity, AppPagarRecibo" managed-type-token-id="33554442" />
+    <entry java-name="crc645dfc9db1ac629028/MainApplication" managed-name="AppPagarRecibo.MainApplication, AppPagarRecibo" managed-type-token-id="33554443" />
+  </managed-to-java>
+</api>

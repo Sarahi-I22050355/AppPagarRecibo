@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppPagarRecibo.Views.ResumenAlumnoPage"
+             Title="Resumen del Alumno"
+             BackgroundColor="#F5F5F5">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="12">
+
+            <!-- Datos personales -->
+            <Frame BackgroundColor="White" CornerRadius="10" Padding="18" HasShadow="True">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Datos del Alumno" FontSize="16" FontAttributes="Bold" TextColor="#FF4682B4"/>
+                    <BoxView HeightRequest="1" Color="#E0E0E0"/>
+                    <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" ColumnSpacing="10" RowSpacing="4">
+                        <Label Grid.Row="0" Grid.Column="0" Text="Nombre:" FontAttributes="Bold" TextColor="#555" FontSize="13"/>
+                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding Nombre}" TextColor="#333" FontSize="13"/>
+                        <Label Grid.Row="1" Grid.Column="0" Text="Matrícula:" FontAttributes="Bold" TextColor="#555" FontSize="13"/>
+                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding Matricula}" TextColor="#333" FontSize="13"/>
+                        <Label Grid.Row="2" Grid.Column="0" Text="Carrera:" FontAttributes="Bold" TextColor="#555" FontSize="13"/>
+                        <Label Grid.Row="2" Grid.Column="1" Text="{Binding Carrera}" TextColor="#333" FontSize="13"/>
+                        <Label Grid.Row="3" Grid.Column="0" Text="Semestre:" FontAttributes="Bold" TextColor="#555" FontSize="13"/>
+                        <Label Grid.Row="3" Grid.Column="1" Text="{Binding SemestreActual}" TextColor="#333" FontSize="13"/>
+                        <Label Grid.Row="4" Grid.Column="0" Text="Tipo:" FontAttributes="Bold" TextColor="#555" FontSize="13"/>
+                        <Label Grid.Row="4" Grid.Column="1" Text="{Binding TipoUsuario}" TextColor="#333" FontSize="13"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Beca -->
+            <Frame BackgroundColor="White" CornerRadius="10" Padding="15" HasShadow="True">
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Beca" FontSize="16" FontAttributes="Bold" TextColor="#FF4682B4"/>
+                    <BoxView HeightRequest="1" Color="#E0E0E0"/>
+                    <Label Text="{Binding BecaDescripcion}" FontSize="14" TextColor="#333"/>
+                    <Label Text="{Binding BecaPorcentaje, StringFormat='Porcentaje: {0}%'}" FontSize="14" TextColor="#2E7D32" FontAttributes="Bold"
+                           IsVisible="{Binding TieneBeca}"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Oportunidades con costo extra -->
+            <Frame BackgroundColor="White" CornerRadius="10" Padding="15" HasShadow="True"
+                   IsVisible="{Binding TieneOportunidadesConCosto}">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Materias con Costo Extra" FontSize="16" FontAttributes="Bold" TextColor="#E65100"/>
+                    <BoxView HeightRequest="1" Color="#E0E0E0"/>
+                    <CollectionView ItemsSource="{Binding OportunidadesConCostoExtra}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame BackgroundColor="#FFF8E1" CornerRadius="6" Padding="10" Margin="0,3" HasShadow="False">
+                                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="8">
+                                        <Label Grid.Row="0" Grid.Column="0" FontSize="13" FontAttributes="Bold" TextColor="#333">
+                                            <Label.Text>
+                                                <MultiBinding StringFormat="{}{0} - {1}">
+                                                    <Binding Path="ClaveAsignatura"/>
+                                                    <Binding Path="NombreAsignatura"/>
+                                                </MultiBinding>
+                                            </Label.Text>
+                                        </Label>
+                                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding CostoExtra, StringFormat='${0:N2}'}"
+                                               FontAttributes="Bold" TextColor="#E65100" FontSize="14"/>
+                                        <Label Grid.Row="1" Grid.Column="0" FontSize="12" TextColor="#666">
+                                            <Label.Text>
+                                                <MultiBinding StringFormat="Sem. {0} | {1}">
+                                                    <Binding Path="Semestre"/>
+                                                    <Binding Path="TipoOportunidad"/>
+                                                </MultiBinding>
+                                            </Label.Text>
+                                        </Label>
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Desglose de montos -->
+            <Frame BackgroundColor="White" CornerRadius="10" Padding="18" HasShadow="True">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Desglose de Pago" FontSize="16" FontAttributes="Bold" TextColor="#FF4682B4"/>
+                    <BoxView HeightRequest="1" Color="#E0E0E0"/>
+                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="6">
+                        <Label Grid.Row="0" Grid.Column="0" Text="Costo inscripción:" FontSize="14" TextColor="#555"/>
+                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding CostoBase, StringFormat='${0:N2}'}" FontSize="14" TextColor="#333"/>
+
+                        <Label Grid.Row="1" Grid.Column="0" Text="Materias especiales:" FontSize="14" TextColor="#555"
+                               IsVisible="{Binding TieneOportunidadesConCosto}"/>
+                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding CostoOportunidades, StringFormat='+${0:N2}'}" FontSize="14" TextColor="#E65100"
+                               IsVisible="{Binding TieneOportunidadesConCosto}"/>
+
+                        <Label Grid.Row="2" Grid.Column="0" Text="Descuento beca:" FontSize="14" TextColor="#555"
+                               IsVisible="{Binding TieneBeca}"/>
+                        <Label Grid.Row="2" Grid.Column="1" Text="{Binding DescuentoBeca, StringFormat='-${0:N2}'}" FontSize="14" TextColor="#2E7D32"
+                               IsVisible="{Binding TieneBeca}"/>
+
+                        <BoxView Grid.Row="3" Grid.ColumnSpan="2" HeightRequest="2" Color="#FF4682B4"/>
+
+                        <Label Grid.Row="4" Grid.Column="0" Text="TOTAL A PAGAR:" FontSize="18" FontAttributes="Bold" TextColor="#FF4682B4"/>
+                        <Label Grid.Row="4" Grid.Column="1" Text="{Binding TotalAPagar, StringFormat='${0:N2}'}" FontSize="18" FontAttributes="Bold" TextColor="#FF4682B4"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Button Text="Continuar al Pago" Command="{Binding ContinuarPagoCommand}"
+                    BackgroundColor="#FF4682B4" TextColor="White" FontAttributes="Bold"
+                    CornerRadius="8" HeightRequest="50" FontSize="16" Margin="0,5"/>
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="#FF4682B4"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

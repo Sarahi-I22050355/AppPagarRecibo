@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AppPagarRecibo.ViewModels"
+             x:Class="AppPagarRecibo.Views.LoginPage"
+             Title="Iniciar Sesión"
+             Shell.NavBarIsVisible="False">
+
+    <ContentPage.BindingContext>
+        <vm:LoginViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid>
+        <!-- Fondo -->
+        <Image Source="backgroundapp.jpg" Aspect="AspectFill"/>
+
+        <ScrollView>
+            <VerticalStackLayout Padding="30" Spacing="15" VerticalOptions="Center">
+
+                <!-- Header con logo -->
+                <Frame BackgroundColor="#FF4682B4" CornerRadius="12" Padding="20" HasShadow="True">
+                    <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                        <Image Source="logotecnm.png" HeightRequest="90" Aspect="AspectFit" HorizontalOptions="Center"/>
+                        <Label Text="Sistema de Pago de Inscripción" FontSize="13" TextColor="White" 
+                               HorizontalOptions="Center" Opacity="0.85"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Campos de login -->
+                <Frame BackgroundColor="White" CornerRadius="10" Padding="20" HasShadow="True">
+                    <VerticalStackLayout Spacing="15">
+                        <Label Text="Matrícula" FontSize="14" TextColor="#333" FontAttributes="Bold"/>
+                        <Entry Placeholder="Ej: I22050355" Text="{Binding Matricula}" Keyboard="Text" MaxLength="10"
+                               BackgroundColor="#F9F9F9" TextColor="#333" PlaceholderColor="#999"/>
+
+                        <Label Text="Contraseña" FontSize="14" TextColor="#333" FontAttributes="Bold"/>
+                        <Entry Placeholder="Ingresa tu contraseña" Text="{Binding Clave}" IsPassword="True"
+                               BackgroundColor="#F9F9F9" TextColor="#333" PlaceholderColor="#999"/>
+
+                        <Button Text="Iniciar Sesión" Command="{Binding IniciarSesionCommand}"
+                                BackgroundColor="#FF4682B4" TextColor="White" FontAttributes="Bold"
+                                CornerRadius="8" HeightRequest="50" FontSize="16"/>
+
+                        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="#FF4682B4"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Error de credenciales -->
+                <Frame BackgroundColor="#FFEBEE" BorderColor="#F44336" CornerRadius="8" Padding="12"
+                       IsVisible="{Binding MostrarError}" HasShadow="False">
+                    <Label Text="{Binding MensajeError}" TextColor="#C62828" FontSize="14"/>
+                </Frame>
+
+                <!-- Bloqueo permanente -->
+                <Frame BackgroundColor="#FFEBEE" BorderColor="#D32F2F" CornerRadius="8" Padding="15"
+                       IsVisible="{Binding BloqueoPermanente}" HasShadow="True">
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="⛔ ACCESO DENEGADO" FontSize="18" TextColor="#C62828" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        <Label Text="{Binding MensajeBloqueoPermanente}" TextColor="#B71C1C" FontSize="13" HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Bloqueo por documentación -->
+                <Frame BackgroundColor="#FFF3E0" BorderColor="#FF9800" CornerRadius="8" Padding="15"
+                       IsVisible="{Binding BloqueoDocumentacion}" HasShadow="True">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="⚠️ Documentación Pendiente" FontSize="16" TextColor="#E65100" FontAttributes="Bold"/>
+                        <Label Text="{Binding MensajeBloqueoDocumentacion}" TextColor="#BF360C" FontSize="13"/>
+                        <CollectionView ItemsSource="{Binding DocumentosPendientes}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame BackgroundColor="White" CornerRadius="6" Padding="10" Margin="0,3" HasShadow="False">
+                                        <VerticalStackLayout Spacing="3">
+                                            <Label Text="{Binding TipoAdeudo}" FontAttributes="Bold" FontSize="14" TextColor="#333"/>
+                                            <Label Text="{Binding Observacion}" FontSize="12" TextColor="#666"/>
+                                        </VerticalStackLayout>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </Frame>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>
