@@ -18,7 +18,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AppPagarRecibo")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+1255d1969e5540b04cca47b0d41d266ff5ca2649")]
 [assembly: System.Reflection.AssemblyProductAttribute("AppPagarRecibo")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AppPagarRecibo")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

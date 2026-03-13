@@ -66,7 +66,7 @@
                             <VerticalStackLayout Grid.Column="0" Spacing="4">
                                 <Label Text="Vencimiento" FontSize="13" TextColor="#555" FontAttributes="Bold"/>
                                 <Entry Placeholder="MM/AA" Text="{Binding FechaVencimientoTarjeta}"
-                                       Keyboard="Numeric" MaxLength="5" BackgroundColor="#F9F9F9" TextColor="#333" PlaceholderColor="#999"/>
+                                       Keyboard="Text" MaxLength="5" BackgroundColor="#F9F9F9" TextColor="#333" PlaceholderColor="#999"/>
                             </VerticalStackLayout>
                             <VerticalStackLayout Grid.Column="1" Spacing="4">
                                 <Label Text="CVV" FontSize="13" TextColor="#555" FontAttributes="Bold"/>
